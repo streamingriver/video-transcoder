@@ -1,4 +1,5 @@
 FROM jrottenberg/ffmpeg:4.4-scratch as ffmpeg
+FROM ghcr.io/streamingriver/super-config:main as superconfig
 
 FROM alpine:latest
 
@@ -12,11 +13,11 @@ RUN chmod 711 /data/conf /data/run /data/logs
 RUN mkdir -p /etc/supervisor/conf.d/
 
 COPY supervisor.conf /data/conf
-COPY super-config /super-config
 
 VOLUME ["/data"]
 VOLUME ["/etc/supervisor/conf.d"]
 
 COPY --from=ffmpeg /bin/ffmpeg /ffmpeg
+COPY --from=superconfig /super-config /super-config
 
 ENTRYPOINT ["supervisord","-n", "-c", "/data/conf/supervisor.conf"]
