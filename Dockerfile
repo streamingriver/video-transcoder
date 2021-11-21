@@ -1,5 +1,6 @@
 FROM jrottenberg/ffmpeg:4.4-scratch as ffmpeg
 FROM ghcr.io/streamingriver/super-config:main as superconfig
+FROM ghcr.io/streamingriver/static-fileserver:main as fileserver
 
 FROM alpine:latest
 
@@ -19,5 +20,6 @@ VOLUME ["/etc/supervisor/conf.d"]
 
 COPY --from=ffmpeg /bin/ffmpeg /ffmpeg
 COPY --from=superconfig /super-config /super-config
+COPY --from=fileserver /fileserver /fileserver
 
 ENTRYPOINT ["supervisord","-n", "-c", "/data/conf/supervisor.conf"]
