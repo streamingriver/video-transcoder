@@ -13,7 +13,6 @@ RUN chmod 711 /data/conf /data/run /data/logs
 RUN mkdir -p /etc/supervisor/conf.d/
 
 COPY supervisor.conf /data/conf
-COPY super-config /super-config
 
 VOLUME ["/data"]
 VOLUME ["/etc/supervisor/conf.d"]
