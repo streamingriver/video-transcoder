@@ -1,0 +1,22 @@
+FROM jrottenberg/ffmpeg:4.4-scratch as ffmpeg
+
+FROM alpine:latest
+
+RUN \
+  apk add --update bash supervisor inotify-tools && \
+  rm -rf /var/cache/apk/*
+
+RUN mkdir -p /data/conf /data/run /data/logs
+RUN chmod 711 /data/conf /data/run /data/logs
+
+RUN mkdir -p /etc/supervisor/conf.d/
+
+COPY supervisor.conf /data/conf
+COPY super-config /super-config
+
+VOLUME ["/data"]
+VOLUME ["/etc/supervisor/conf.d"]
+
+COPY --from=ffmpeg /bin/ffmpeg /ffmpeg
+
+ENTRYPOINT ["supervisord","-n", "-c", "/data/conf/supervisor.conf"]
