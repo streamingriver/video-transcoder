@@ -1,4 +1,3 @@
-
 FROM ghcr.io/streamingriver/super-config:latest as superconfig
 FROM ghcr.io/streamingriver/static-fileserver:main as fileserver
 
