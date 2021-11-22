@@ -1,5 +1,5 @@
 FROM jrottenberg/ffmpeg:4.4-scratch as ffmpeg
-FROM ghcr.io/streamingriver/super-config:main as superconfig
+FROM ghcr.io/streamingriver/super-config:latest as superconfig
 FROM ghcr.io/streamingriver/static-fileserver:main as fileserver
 
 FROM alpine:latest
