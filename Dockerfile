@@ -1,5 +1,5 @@
 FROM ghcr.io/streamingriver/super-config:latest as superconfig
-FROM ghcr.io/streamingriver/static-fileserver:main as fileserver
+FROM ghcr.io/streamingriver/static-fileserver:latest as fileserver
 
 FROM alpine:latest
 
