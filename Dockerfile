@@ -1,5 +1,4 @@
-FROM jrottenberg/ffmpeg:4.4-scratch as ffmpeg
-FROM ghcr.io/streamingriver/super-config:main as superconfig
+FROM ghcr.io/streamingriver/super-config:latest as superconfig
 FROM ghcr.io/streamingriver/static-fileserver:main as fileserver
 
 FROM alpine:latest
@@ -18,7 +17,7 @@ COPY supervisor.conf /data/conf
 VOLUME ["/data"]
 VOLUME ["/etc/supervisor/conf.d"]
 
-COPY --from=ffmpeg /bin/ffmpeg /ffmpeg
+COPY --from=mwader/static-ffmpeg:4.4.1 /ffmpeg  /ffmpeg
 COPY --from=superconfig /super-config /super-config
 COPY --from=fileserver /fileserver /fileserver
 
